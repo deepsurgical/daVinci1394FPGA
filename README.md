@@ -45,6 +45,9 @@ Comparing the low-level Verilog files preserved in this archival repository agai
 
 #### The 7-to-8 Axis Adaptation
 Later artifacts of this porting sequence is visible in [one of my early commits](https://github.com/jhu-cisst/mechatronics-firmware/commit/b6e0830884eb06d80bc08d6f908d80e43b5e1405) to the official repository, before I had a GitHub account. A simple refactor shows the physical translation of the code between the two platforms:
+```
+Paul Thienphrapa, committed on Oct 16, 2012, FPGA1394_QLA: Increase maximum number of axes from 7 to 8
+```
 * **The Refactor:** Modifying the hardcoded system parameters to increase the number of supported axes from **7 to 8**.
 * **The Constraint:** While the original snake robot had only seven (7) control axes in `SnakeFPGA-rev2`, the corresponding controller board on the dVRK platform was designed to handle 8 axes.
 
