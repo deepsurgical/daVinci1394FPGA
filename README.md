@@ -62,6 +62,16 @@ Later artifacts of this porting sequence show up in [my prehistoric commit](http
 * **The Refactor:** Modifying the hardcoded system parameters to increase the number of supported axes from **7 to 8**.
 * **The Adaptation:** The snake robot had only seven (7) control axes in `SnakeFPGA-rev2`, while the corresponding dVRK controller was designed for 8.
 
+#### My dVRK Development & Event History
+* **Apr 2008:** Wrote the foundational hardware control architecture for the snake robot: `SnakeFPGA-rev2`
+* **Oct 2010:** Ported the architecture from the snake robot to the dVRK: `daVinci1394FPGA` (Altera → Xilinx FPGA)
+* **Nov 2011:** Continued to update and maintain both codebases in parallel
+* **Sep 2012:** Released as open source to GitHub: `mechatronics-firmware`
+* **Oct 2012:** Expanded 7-axis snake robot to 8-axis da Vinci Research Kit (dVRK)
+* **Mar 2014:** Latest known reference to the original name _Intuitive Research Kit_
+* **Jun 2014:** Earliest known reference to the current name _da Vinci Research Kit_
+* **Present:** Legacy name remains in some repositories: `sawIntuitiveResearchKit`
+
 #### Designed for Growth
 What started off as a modest set of .v files has expanded to support a wide array of hardware variants and technical features. These were just a few of the many [interesting facts](https://www.mepaul.com/wiki/10-background-facts-da-vinci-research-kit-dvrk) about the dVRK!
 
