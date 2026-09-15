@@ -1,6 +1,6 @@
 # 🐍 From Snake Robots to Surgical Standards: The Architectural Origins of the da Vinci Research Kit
 
-This repository preserves the original hardware control architecture for the [da Vinci Research Kit (dVRK)](https://www.intuitive-foundation.org/dvrk/), designed as part of my graduate research at Johns Hopkins University. The codebase has since moved to JHU's [`mechatronics-firmware`](https://github.com/jhu-cisst/mechatronics-firmware) repository, with the final commit here flowing into the initial commit [(`a38917c`)](https://github.com/jhu-cisst/mechatronics-firmware/tree/a38917c2ce4880597da052d8d369eaeaf47659b4) there. This control architecture came from a completely separate robotic system: **a high-degree-of-freedom surgical snake robot.**
+This repository preserves the original hardware control architecture for the [da Vinci Research Kit (dVRK)](https://www.intuitive-foundation.org/dvrk/), designed as part of my graduate research at Johns Hopkins University. The codebase has since moved to JHU's [`mechatronics-firmware`](https://github.com/jhu-cisst/mechatronics-firmware) repository, with the final commit here flowing into the initial commit [(`a38917c`)](https://github.com/jhu-cisst/mechatronics-firmware/tree/a38917c2ce4880597da052d8d369eaeaf47659b4) there. This control architecture, however, came from a completely separate robotic system: **a high-degree-of-freedom surgical snake robot.**
 
 ### 1. The Snake Robot Cabling Crunch
 
@@ -8,7 +8,7 @@ This repository preserves the original hardware control architecture for the [da
 
 During my early days in the LCSR, the lab was making strides in dexterity with a snake robot designed for remote telesurgery of the upper airway. However, standard control architectures involved running bulky wiring bundles from every control axis to a centralized electronics rack. The dozens of sensors and actuators needed to articulate such a high-dof robot created a physical bottleneck. The system became increasingly error prone and difficult to work with.
 
-To solve this, we designed a [hardware controller architecture](https://www.researchgate.net/publication/224353229_Centralized_processing_and_distributed_IO_for_robot_control) optimized for high-degree-of-freedom systems:
+To solve this, we designed a [hardware control architecture](https://www.researchgate.net/publication/224353229_Centralized_processing_and_distributed_IO_for_robot_control) optimized for high-degree-of-freedom systems:
 * **Centralized Processing, Distributed I/O:** Rather than routing bundles of wires from each joint to the workstation individually, sensor and actuator signals are digitized and serialized by a nearby FPGA.
 * **The FireWire Bus:** The motor commands and sensor readings are then multiplexed over a single, high-speed IEEE 1394 (FireWire) serial bus, maintaining real-time performance.
 * **The Codebase:** The implementation of this architecture for the snake robot became the [`SnakeFPGA-rev2`](https://github.com/deepsurgical/SnakeFPGA-rev2) codebase.
@@ -16,13 +16,13 @@ To solve this, we designed a [hardware controller architecture](https://www.rese
 To top it all off (so to speak), we built a next-gen snake robot for the new controller and got [exciting results](https://www.researchgate.net/publication/254025466_Design_of_a_scalable_real-time_robot_controller_and_application_to_a_dexterous_manipulator).
 <p align="center"><img height="583" alt="We built a next-gen snake robot for the new controller." src="https://github.com/user-attachments/assets/f4c8e592-6f26-42aa-ae15-6304806d144b" /></p>
 
-### 2. Porting from the Snake to the da Vinci
-When Intuitive Surgical later provided retired first-generation da Vinci systems for research, labs faced a similar engineering hurdle: The donated manipulators needed new motion control electronics. Because the communication protocols and packet definitions implemented in `SnakeFPGA-rev2` were decoupled from robot kinematics, porting it to the da Vinci interface boards was relatively seamless.
+### 2. Porting the Snake Robot Firmware to the da Vinci Research Kit
+When Intuitive Surgical later provided retired first-generation da Vinci systems for research, labs faced a similar engineering hurdle: The donated manipulators needed new motion control electronics. Because the communication protocols and packet definitions implemented in `SnakeFPGA-rev2` were neatly decoupled from robot kinematics, porting it to the da Vinci interface boards was relatively seamless. The boards themselves were designed and fabricated in a matter of weeks as a result of a firmware-first design philosophy.
 
 <p align="center"><img height="218" alt="First-generation da Vinci Research Kit controller pictured on the left a year before launch, next to its predecessor the snake robot controller on the right" src="https://github.com/user-attachments/assets/ee1c27f2-e760-4bae-828f-442b6b8efd25" /> <img height="218" alt="The da Vinci Research Kit and snake robot controllers were developed in parallel so changes in one could be tested on the other immediately. This was at an advanced stage where robotic mechanisms and motors were being integrated and it was getting real." src="https://github.com/user-attachments/assets/01a7c7e6-b790-4ac5-a861-352e2342024d" />
 </p>
 
-This repository was created to port the Altera-based snake robot firmware to the Xilinx-based da Vinci Research Kit. Development on the two controllers continued in parallel to ensure consistency and generalizability. The generalized multi-axis data distribution design allowed the first functional systems to be brought up in no time.
+Porting of the Altera-based snake robot firmware to the Xilinx-based da Vinci Research Kit took place in this very repository. Development on the two controllers continued in parallel to ensure consistency and generalizability. The generalized multi-axis data distribution design allowed the first functional systems to be brought up in no time.
 
 [First known recorded power-on of the da Vinci Research Kit (dVRK) motion controller](https://github.com/user-attachments/assets/3037465c-1144-416a-8ffe-dfd9f047238d)
 
@@ -74,3 +74,11 @@ What started off as a modest set of .v files has expanded to support a wide arra
 
 ### Systems Engineering Takeaway
 This repository highlights the power of modular digital system design. A hardware control architecture abstracted enough to handle multi-axis distributed I/O over a high-speed serial link can easily outlast its physical form, jumping from a miniature articulated snake robot to a medical robotics research platform found in labs all around the world.
+
+### References
+1. Design of the hardware control architecture: [_Centralized processing and distributed I/O for robot control_](https://doi.org/10.1109/TEPRA.2008.4686678)
+2. Initial prototype for the snake robot: [_A distributed I/O low-level controller for highly-dexterous snake robots_](https://doi.org/10.1109/BIOCAS.2008.4696861)
+3. Architecture generalization and API: [_A scalable system for real-time control of dexterous surgical robots_](https://doi.org/10.1109/TEPRA.2009.5339651)
+4. Fully integrated implementation: [_Design of a scalable real-time robot controller and application to a dexterous manipulator_](https://doi.org/10.1109/ROBIO.2011.6181640)
+5. Running an autonomous snake robot: [_Guidance of a high dexterity robot under 3D ultrasound for minimally invasive retrieval of foreign bodies from a beating heart_](https://doi.org/10.1109/ICRA.2014.6907572)
+6. Evolution into to the da Vinci Research Kit: [_An open-source research kit for the da Vinci® Surgical System_](https://doi.org/10.1109/ICRA.2014.6907809)
